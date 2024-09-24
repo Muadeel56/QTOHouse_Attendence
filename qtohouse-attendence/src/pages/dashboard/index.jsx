@@ -6,11 +6,11 @@ import Paper from '@mui/material/Paper';
 
 // Sample employee data for the table
 const initialEmployeesData = [
-  { id: 1, firstName: "John", lastName: "Doe", age: 29, role: "Civil Engineer", Checkin: "03:00 pm" },
-  { id: 2, firstName: "Jane", lastName: "Smith", age: 34, role: "Mechanical Engineer", Checkin: "03:00 pm" },
-  { id: 3, firstName: "Michael", lastName: "Johnson", age: 40, role: "Electrical Engineer", Checkin: "03:00 pm" },
-  { id: 4, firstName: "Emily", lastName: "Davis", age: 25, role: "Civil Engineer", Checkin: "12:00 pm" },
-  { id: 5, firstName: "David", lastName: "Brown", age: 45, role: "Estimator", Checkin: "03:00 pm" },
+  { id: 1, firstName: "John", lastName: "Doe", age: 29, role: "Civil Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours"},
+  { id: 2, firstName: "Jane", lastName: "Smith", age: 34, role: "Mechanical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours"},
+  { id: 3, firstName: "Michael", lastName: "Johnson", age: 40, role: "Electrical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours"},
+  { id: 4, firstName: "Emily", lastName: "Davis", age: 25, role: "Civil Engineer", Checkin: "12:00 pm", Checkout: "09:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours"},
+  { id: 5, firstName: "David", lastName: "Brown", age: 45, role: "Estimator", Checkin: "03:00 pm", Checkout: "12:00 am", WorkingHours: "09 Hours", Overtime: "0 hours"},
 ];
 
 const columns = [
@@ -19,11 +19,31 @@ const columns = [
   { field: 'lastName', headerName: 'Last Name', width: 130 },
   { field: 'age', headerName: 'Age', type: 'number', width: 90 },
   { field: 'role', headerName: 'Role', width: 160 },
-  {field: 'Checkin', headerName: 'Checkin', width: 160},
-  {field: 'Check-Out', headerName: 'Check-Out', width: 160},
-  {field: 'Working Hours', headerName: 'Working Hours', width: 160},
-  {field: 'Overtime', headerName: 'Overtime', width: 160},
+  { field: 'Checkin', headerName: 'Checkin', width: 160 },
+  { field: 'Checkout', headerName: 'Checkout', width: 160 },
+  { field: 'WorkingHours', headerName: 'Working Hours', width: 160 },
+  { field: 'Overtime', headerName: 'Overtime', width: 160 },
+  {
+    field: 'action',
+    headerName: 'Action',
+    width: 200,
+    renderCell: (params) => (
+      <div className="relative w-full h-full flex justify-center items-center">
+        <div className="absolute flex space-x-2">
+          <button className="px-2 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">
+            Edit
+          </button>
+          <button className="px-2 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600">
+            Remove
+          </button>
+        </div>
+      </div>
+    ),
+  }
 ];
+
+
+
 
 function Dashboard() {
   // State for storing the filters
@@ -106,7 +126,7 @@ function Dashboard() {
         </div>
 
         {/* DataGrid Table for Employee List */}
-        <Paper sx={{ height: 400, width: '100%', marginTop: '20px' }}>
+        <Paper sx={{ height: 400, width: '100%', marginTop: '40px' }}>
           <DataGrid
             rows={filteredData}
             columns={columns}
