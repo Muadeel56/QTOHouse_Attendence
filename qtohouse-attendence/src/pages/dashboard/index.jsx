@@ -6,11 +6,11 @@ import Paper from '@mui/material/Paper';
 
 // Sample employee data for the table
 const initialEmployeesData = [
-  { id: 1, firstName: "John", lastName: "Doe", age: 29, role: "Civil Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours"},
-  { id: 2, firstName: "Jane", lastName: "Smith", age: 34, role: "Mechanical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours"},
-  { id: 3, firstName: "Michael", lastName: "Johnson", age: 40, role: "Electrical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours"},
-  { id: 4, firstName: "Emily", lastName: "Davis", age: 25, role: "Civil Engineer", Checkin: "12:00 pm", Checkout: "09:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours"},
-  { id: 5, firstName: "David", lastName: "Brown", age: 45, role: "Estimator", Checkin: "03:00 pm", Checkout: "12:00 am", WorkingHours: "09 Hours", Overtime: "0 hours"},
+  { id: 1, firstName: "John", lastName: "Doe", age: 29, role: "Civil Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours" , BreakIn: "08:00 pm", BreakOut: "09:00 pm"},
+  { id: 2, firstName: "Jane", lastName: "Smith", age: 34, role: "Mechanical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours" , BreakIn: "08:00 pm", BreakOut: "09:00 pm"},
+  { id: 3, firstName: "Michael", lastName: "Johnson", age: 40, role: "Electrical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours" , BreakIn: "08:00 pm", BreakOut: "09:00 pm"},
+  { id: 4, firstName: "Emily", lastName: "Davis", age: 25, role: "Civil Engineer", Checkin: "12:00 pm", Checkout: "09:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours", BreakIn: "08:00 pm", BreakOut: "09:00 pm" },
+  { id: 5, firstName: "David", lastName: "Brown", age: 45, role: "Estimator", Checkin: "03:00 pm", Checkout: "12:00 am", WorkingHours: "09 Hours", Overtime: "0 hours", BreakIn: "08:00 pm", BreakOut: "09:00 pm" },
 ];
 
 const columns = [
@@ -21,6 +21,8 @@ const columns = [
   { field: 'role', headerName: 'Role', width: 160 },
   { field: 'Checkin', headerName: 'Checkin', width: 160 },
   { field: 'Checkout', headerName: 'Checkout', width: 160 },
+  { field: 'BreakIn', headerName: 'BreakIn', width: 160 },
+  { field: 'BreakOut', headerName: 'BreakOut', width: 160 },
   { field: 'WorkingHours', headerName: 'Working Hours', width: 160 },
   { field: 'Overtime', headerName: 'Overtime', width: 160 },
   {
@@ -30,7 +32,7 @@ const columns = [
     renderCell: (params) => (
       <div className="relative w-full h-full flex justify-center items-center">
         <div className="absolute flex space-x-2">
-          <button className="px-2 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600">
+          <button className="px-3 py-2 bg-green-500 text-white text-sm rounded hover:bg-green-600">
             Edit
           </button>
           <button className="px-2 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600">
@@ -42,12 +44,9 @@ const columns = [
   }
 ];
 
-
-
-
 function Dashboard() {
   // State for storing the filters
-  const [filters, setFilters] = useState({ age: '', role: '' });
+  const [filters, setFilters] = useState({ age: '', role: '', checkin: '', workingHours: '' });
   // State for storing the filtered employees data
   const [filteredData, setFilteredData] = useState(initialEmployeesData);
 
@@ -65,11 +64,20 @@ function Dashboard() {
       filtered = filtered.filter(emp => emp.role === filters.role);
     }
 
+    if (filters.checkin) {
+      filtered = filtered.filter(emp => emp.Checkin === filters.checkin);
+    }
+
+    if (filters.workingHours) {
+      filtered = filtered.filter(emp => emp.WorkingHours === filters.workingHours);
+    }
+
     setFilteredData(filtered);
   };
 
   return (
     <div>
+      
       <div className="flex justify-between">
         <h1>Attendances</h1>
         <p>Attendance - Attendances</p>
@@ -86,7 +94,7 @@ function Dashboard() {
             </div>
 
             {/* Filter Section */}
-            <div className="flex">
+            <div className="flex gap-4">
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="demo-simple-select-label">Age</InputLabel>
                 <Select
@@ -102,8 +110,8 @@ function Dashboard() {
                 </Select>
               </FormControl>
 
-              <FormControl sx={{ m: 1, minWidth: 180 }}>
-                <InputLabel id="demo-simple-select-label">Estimators</InputLabel>
+              <FormControl sx={{ m: 1, minWidth: 160 }}>
+                <InputLabel id="demo-simple-select-label">Role</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -118,9 +126,39 @@ function Dashboard() {
                 </Select>
               </FormControl>
 
-              <button className="px-4 py-2 bg-blue-500 text-white rounded" onClick={handleSearch}>
+              <FormControl sx={{ m: 1, minWidth: 160 }}>
+                <InputLabel id="demo-simple-select-checkin">Checkin</InputLabel>
+                <Select
+                  labelId="demo-simple-select-checkin"
+                  id="demo-simple-checkin"
+                  label="Checkin"
+                  value={filters.checkin}
+                  onChange={(e) => setFilters({ ...filters, checkin: e.target.value })}
+                >
+                  <MenuItem value="03:00 pm">03:00 pm</MenuItem>
+                  <MenuItem value="12:00 pm">12:00 pm</MenuItem>
+                </Select>
+              </FormControl>
+
+              <FormControl sx={{ m: 1, minWidth: 160 }}>
+                <InputLabel id="demo-simple-select-working-hours">Working Hours</InputLabel>
+                <Select
+                  labelId="demo-simple-select-working-hours"
+                  id="demo-simple-select-working-hours"
+                  label="Working Hours"
+                  value={filters.workingHours}
+                  onChange={(e) => setFilters({ ...filters, workingHours: e.target.value })}
+                >
+                  <MenuItem value="09 Hours">09 Hours</MenuItem>
+                  <MenuItem value="08 Hours">08 Hours</MenuItem>
+                </Select>
+              </FormControl>
+              <div className="flex items-center">
+                <button className="px-4 py-2  bg-blue-500 text-white rounded" onClick={handleSearch}>
                 Search
               </button>
+              </div>
+              
             </div>
           </div>
         </div>
