@@ -14,17 +14,15 @@ const initialEmployeesData = [
 ];
 
 const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
   { field: 'firstName', headerName: 'First Name', width: 130 },
   { field: 'lastName', headerName: 'Last Name', width: 130 },
-  { field: 'age', headerName: 'Age', type: 'number', width: 90 },
   { field: 'role', headerName: 'Role', width: 160 },
   { field: 'Checkin', headerName: 'Checkin', width: 160 },
   { field: 'Checkout', headerName: 'Checkout', width: 160 },
   { field: 'BreakIn', headerName: 'BreakIn', width: 160 },
   { field: 'BreakOut', headerName: 'BreakOut', width: 160 },
   { field: 'WorkingHours', headerName: 'Working Hours', width: 160 },
-  { field: 'Overtime', headerName: 'Overtime', width: 160 },
+  { field: 'Overtime', headerName: 'Overtime', width: 100 },
   {
     field: 'action',
     headerName: 'Action',
@@ -76,7 +74,7 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div className="">
       
       <div className="flex justify-between">
         <h1>Attendances</h1>
