@@ -1,18 +1,18 @@
-import Header from "./Components/Header"
-import Dashboard from "./pages/dashboard"
-import Home from "./pages/home"
-import Login from "./pages/login"
+import Header from "./Components/Header";
+import SidebarMenu from "./Components/Sidebar";
+import Dashboard from "./pages/dashboard";
 
 function App() {
-
   return (
     <div className="h-full">
-      {/* <Header /> */}
-      {/* <Login /> */}
-      <Dashboard />
-      {/* <Home /> */}
+      <Header />
+      <SidebarMenu />
+      
+      <div className="main-content ml-64 mt-20 p-6 bg-gray-100 min-h-screen">
+        <Dashboard />
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

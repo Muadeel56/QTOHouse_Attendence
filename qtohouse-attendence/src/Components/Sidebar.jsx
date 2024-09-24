@@ -4,13 +4,13 @@ import logo from "../assets/images/logo.svg";
 
 function SidebarMenu() {
   return (
-    <Sidebar className="">
+    <Sidebar className="fixed top-0 left-0 w-64 h-full bg--700 text- z-40 px-4 py-6">
       <div className="flex justify-center items-center my-6 ">
-        <img src={logo} alt="logo" className="w-[100px] " />
+        <img src={logo} alt="logo" className="w-[100px]" />
       </div>
 
       <Menu>
-        <SubMenu label="Dashboard">
+        <SubMenu label="Attendance">
           <MenuItem>Charts</MenuItem>
           <MenuItem>Lists</MenuItem>
         </SubMenu>
@@ -24,14 +24,14 @@ function SidebarMenu() {
           <MenuItem>Terms and Conditions</MenuItem>
         </SubMenu>
         <SubMenu label="Settings">
-            <SubMenu label="Attendance">
-                <MenuItem>Shifts</MenuItem>
-                <MenuItem>Salary</MenuItem>
-                <MenuItem>Holidays</MenuItem>
-                <MenuItem>Overtime</MenuItem>
-                <MenuItem>Profile Settings</MenuItem>
-            </SubMenu>
-            <MenuItem>Project</MenuItem>
+          <SubMenu label="Attendance">
+            <MenuItem>Shifts</MenuItem>
+            <MenuItem>Salary</MenuItem>
+            <MenuItem>Holidays</MenuItem>
+            <MenuItem>Overtime</MenuItem>
+            <MenuItem>Profile Settings</MenuItem>
+          </SubMenu>
+          <MenuItem>Project</MenuItem>
         </SubMenu>
       </Menu>
     </Sidebar>
