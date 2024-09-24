@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import SidebarMenu from "../../Components/Sidebar";
 import { MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 
 // Sample employee data for the table
 const initialEmployeesData = [
-  { id: 1, firstName: "John", lastName: "Doe", age: 29, role: "Civil Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours" , BreakIn: "08:00 pm", BreakOut: "09:00 pm"},
-  { id: 2, firstName: "Jane", lastName: "Smith", age: 34, role: "Mechanical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours" , BreakIn: "08:00 pm", BreakOut: "09:00 pm"},
-  { id: 3, firstName: "Michael", lastName: "Johnson", age: 40, role: "Electrical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours" , BreakIn: "08:00 pm", BreakOut: "09:00 pm"},
+  { id: 1, firstName: "John", lastName: "Doe", age: 29, role: "Civil Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours", BreakIn: "08:00 pm", BreakOut: "09:00 pm" },
+  { id: 2, firstName: "Jane", lastName: "Smith", age: 34, role: "Mechanical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours", BreakIn: "08:00 pm", BreakOut: "09:00 pm" },
+  { id: 3, firstName: "Michael", lastName: "Johnson", age: 40, role: "Electrical Engineer", Checkin: "03:00 pm", Checkout: "12:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours", BreakIn: "08:00 pm", BreakOut: "09:00 pm" },
   { id: 4, firstName: "Emily", lastName: "Davis", age: 25, role: "Civil Engineer", Checkin: "12:00 pm", Checkout: "09:00 pm", WorkingHours: "09 Hours", Overtime: "0 hours", BreakIn: "08:00 pm", BreakOut: "09:00 pm" },
   { id: 5, firstName: "David", lastName: "Brown", age: 45, role: "Estimator", Checkin: "03:00 pm", Checkout: "12:00 am", WorkingHours: "09 Hours", Overtime: "0 hours", BreakIn: "08:00 pm", BreakOut: "09:00 pm" },
 ];
@@ -43,45 +42,25 @@ const columns = [
 ];
 
 function Dashboard() {
-  // State for storing the filters
   const [filters, setFilters] = useState({ age: '', role: '', checkin: '', workingHours: '' });
-  // State for storing the filtered employees data
   const [filteredData, setFilteredData] = useState(initialEmployeesData);
 
-  // Handle the search button click and filter the data
   const handleSearch = () => {
     let filtered = initialEmployeesData;
 
-    if (filters.age) {
-      if (filters.age === 'Ten') filtered = filtered.filter(emp => emp.age < 30);
-      if (filters.age === 'Twenty') filtered = filtered.filter(emp => emp.age >= 30 && emp.age < 40);
-      if (filters.age === 'Thirty') filtered = filtered.filter(emp => emp.age >= 40);
-    }
-
-    if (filters.role) {
-      filtered = filtered.filter(emp => emp.role === filters.role);
-    }
-
-    if (filters.checkin) {
-      filtered = filtered.filter(emp => emp.Checkin === filters.checkin);
-    }
-
-    if (filters.workingHours) {
-      filtered = filtered.filter(emp => emp.WorkingHours === filters.workingHours);
-    }
+    // Apply filter logic here
 
     setFilteredData(filtered);
   };
 
   return (
     <div className="">
-      
       <div className="flex justify-between">
         <h1>Attendances</h1>
         <p>Attendance - Attendances</p>
       </div>
 
-      <div className="p-4 h-full bg-white mt-10">
+      <div className="p-4 h-full bg-white dark:bg-gray-900 mt-10">
         <div className="flex flex-col gap-6">
           <h1 className="text-xl font-semibold">Add, Edit & Remove</h1>
 
@@ -93,18 +72,18 @@ function Dashboard() {
 
             {/* Filter Section */}
             <div className="flex gap-4">
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <FormControl sx={{ m: 1, minWidth: 140 }}>
+                <InputLabel id="demo-simple-select-label">Employees</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  label="Age"
+                  label="Employees"
                   value={filters.age}
                   onChange={(e) => setFilters({ ...filters, age: e.target.value })}
                 >
-                  <MenuItem value="Ten">Under 30</MenuItem>
-                  <MenuItem value="Twenty">30-39</MenuItem>
-                  <MenuItem value="Thirty">40+</MenuItem>
+                  <MenuItem value="Ten">Muhammad Adeel</MenuItem>
+                  <MenuItem value="Twenty">Danish Irfan</MenuItem>
+                  <MenuItem value="Thirty">Fayz Sarfraz</MenuItem>
                 </Select>
               </FormControl>
 
@@ -156,7 +135,6 @@ function Dashboard() {
                 Search
               </button>
               </div>
-              
             </div>
           </div>
         </div>

@@ -1,30 +1,40 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './Components/Header';
-import SidebarMenu from './Components/Sidebar';
-import Dashboard from './pages/dashboard';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./Components/Header";
+import SidebarMenu from "./Components/Sidebar";
+import Dashboard from "./pages/dashboard";
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
-  // Toggle the sidebar visibility
+  // Toggle the sidebar between minimized and expanded
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    setIsSidebarMinimized(!isSidebarMinimized);
   };
 
   return (
     <Router>
       <div className="h-full">
         {/* Fixed header */}
-        <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+        <Header toggleSidebar={toggleSidebar} isSidebarMinimized={isSidebarMinimized} />
         
         {/* Main content container */}
         <div className="flex">
           {/* Sidebar */}
-          <SidebarMenu isSidebarOpen={isSidebarOpen} />
+          <div
+            className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-900 shadow-md z-50 transition-all duration-300 ${
+              isSidebarMinimized ? 'w-20' : 'w-64'
+            }`}
+          >
+            <SidebarMenu isSidebarMinimized={isSidebarMinimized} />
+          </div>
 
           {/* Main content, positioned after the header and sidebar */}
-          <div className={`flex-grow transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-20'} mt-20 p-6 bg-gray-100 min-h-screen`}>
+          <div
+            className={`flex-grow transition-all duration-300 ${
+              isSidebarMinimized ? 'ml-20' : 'ml-64'
+            } mt-20 p-6 bg-gray-100 dark:bg-gray-900 min-h-screen`}
+          >
             <Routes>
               <Route path="/" element={<Dashboard />} />
               {/* Add other routes here */}

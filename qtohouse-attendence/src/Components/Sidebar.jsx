@@ -1,89 +1,93 @@
 import React, { useState } from "react";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import { EventAvailable as AttendanceIcon, Gavel as RuleIcon, Settings as SettingsIcon, AccountCircle as ProfileIcon, Help as FAQIcon, Lock as PrivacyIcon, Description as TermsIcon, Assignment as ProjectIcon } from '@mui/icons-material'; // Import icons
+import {
+  EventAvailable as AttendanceIcon,
+  Gavel as RulesIcon,
+  Settings as SettingsIcon,
+} from "@mui/icons-material"; // Icons import
 import logo from "../assets/images/logo.svg";
 import "../assets/css/custom-scrollbar.css"; // Custom CSS file for scrollbar
 
-function SidebarMenu({ isSidebarOpen }) {
+function SidebarMenu({ isSidebarMinimized }) {
+  // State to track which SubMenu is open
   const [openSubMenu, setOpenSubMenu] = useState(null);
 
-  const handleToggleSubMenu = (subMenuName) => {
-    setOpenSubMenu(openSubMenu === subMenuName ? null : subMenuName);
+  // Function to handle submenu click and close others
+  const handleSubMenuClick = (menuName) => {
+    setOpenSubMenu((prevSubMenu) => (prevSubMenu === menuName ? null : menuName));
   };
 
   return (
     <Sidebar
-      className={`fixed top-0 left-0 h-full bg-white shadow-md z-50 transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'} overflow-hidden`}
+      collapsed={isSidebarMinimized} // Use the collapsed prop to control sidebar state
+      className="fixed top-0 left-0 h-full bg-white dark:bg-black shadow-md z-50 transition-all duration-300"
     >
-      {/* Logo */}
-      <div className="flex justify-center items-center my-6">
-        <img src={logo} alt="logo" className={`transition-all duration-300 ${isSidebarOpen ? 'w-[100px]' : 'w-10'}`} />
+      {/* Logo section */}
+      <div className="flex justify-center items-center my-6 cursor-pointer">
+        {!isSidebarMinimized && (
+          <img src={logo} alt="logo" className="w-[50px]" />
+        )}
       </div>
 
-      {/* Menu */}
       <Menu>
-        {/* Attendance SubMenu */}
+        {/* Attendance Parent Menu */}
         <SubMenu
-          label={isSidebarOpen ? "Attendance" : <AttendanceIcon />}
-          className="text-gray-700"
-          open={openSubMenu === "attendance"}
-          onOpenChange={() => handleToggleSubMenu("attendance")}
+          label="Attendance"
           icon={<AttendanceIcon />}
+          className="text-gray-700 dark:text-black"
+          open={openSubMenu === "attendance"}
+          onOpenChange={() => handleSubMenuClick("attendance")}
         >
-          <MenuItem icon={<AttendanceIcon />} className="hover:bg-gray-100">
+          <MenuItem className="hover:bg-gray-100 dark:hover:bg-black">
             <Link to="/charts">Charts</Link>
           </MenuItem>
-          <MenuItem icon={<AttendanceIcon />} className="hover:bg-gray-100">
+          <MenuItem className="hover:bg-gray-100 dark:hover:bg-black">
             <Link to="/lists">Lists</Link>
           </MenuItem>
         </SubMenu>
 
-        {/* Rules and Regulations SubMenu */}
+        {/* Rules and Regulations Parent Menu */}
         <SubMenu
-          label={isSidebarOpen ? "Rules and Regulations" : <RuleIcon />}
-          className="text-gray-700"
+          label="Rules and Regulations"
+          icon={<RulesIcon />}
+          className="text-gray-700 dark:text-black"
           open={openSubMenu === "rules"}
-          onOpenChange={() => handleToggleSubMenu("rules")}
-          icon={<RuleIcon />}
+          onOpenChange={() => handleSubMenuClick("rules")}
         >
-          <SubMenu label={isSidebarOpen ? "Profile" : <ProfileIcon />} icon={<ProfileIcon />}>
-            <MenuItem icon={<ProfileIcon />} className="hover:bg-gray-100">
+          <SubMenu label="Profile">
+            <MenuItem className="hover:bg-gray-100 dark:hover:bg-black">
               <Link to="/profile">Profile Page</Link>
             </MenuItem>
-            <MenuItem className="hover:bg-gray-100">Profile Page Settings</MenuItem>
+            <MenuItem className="hover:bg-gray-100 dark:hover:bg-black">
+              Profile Page Settings
+            </MenuItem>
           </SubMenu>
-          <MenuItem icon={<FAQIcon />} className="hover:bg-gray-100">
-            FAQs
-          </MenuItem>
-          <MenuItem icon={<PrivacyIcon />} className="hover:bg-gray-100">
-            Privacy Policy
-          </MenuItem>
-          <MenuItem icon={<TermsIcon />} className="hover:bg-gray-100">
-            Terms and Conditions
-          </MenuItem>
+          <MenuItem className="hover:bg-gray-100 dark:hover:bg-black">FAQs</MenuItem>
+          <MenuItem className="hover:bg-gray-100 dark:hover:bg-black">Privacy Policy</MenuItem>
+          <MenuItem className="hover:bg-gray-100 dark:hover:bg-black">Terms and Conditions</MenuItem>
         </SubMenu>
 
-        {/* Settings SubMenu */}
+        {/* Settings Parent Menu */}
         <SubMenu
-          label={isSidebarOpen ? "Settings" : <SettingsIcon />}
-          className="text-gray-700"
-          open={openSubMenu === "settings"}
-          onOpenChange={() => handleToggleSubMenu("settings")}
+          label="Settings"
           icon={<SettingsIcon />}
+          className="text-gray-700 dark:text-black"
+          open={openSubMenu === "settings"}
+          onOpenChange={() => handleSubMenuClick("settings")}
         >
-          <SubMenu label={isSidebarOpen ? "Attendance" : <AttendanceIcon />} icon={<AttendanceIcon />}>
-            <MenuItem icon={<AttendanceIcon />} className="hover:bg-gray-100">
+          <SubMenu label="Attendance">
+            <MenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">
               <Link to="/shifts">Shifts</Link>
             </MenuItem>
-            <MenuItem className="hover:bg-gray-100">Salary</MenuItem>
-            <MenuItem icon={<AttendanceIcon />} className="hover:bg-gray-100">
+            <MenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">Salary</MenuItem>
+            <MenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">
               <Link to="/holidays">Holidays</Link>
             </MenuItem>
-            <MenuItem className="hover:bg-gray-100">Overtime</MenuItem>
-            <MenuItem className="hover:bg-gray-100">Profile Settings</MenuItem>
+            <MenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">Overtime</MenuItem>
+            <MenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">Profile Settings</MenuItem>
           </SubMenu>
-          <MenuItem icon={<ProjectIcon />} className="hover:bg-gray-100">Project</MenuItem>
+          <MenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700">Project</MenuItem>
         </SubMenu>
       </Menu>
     </Sidebar>
