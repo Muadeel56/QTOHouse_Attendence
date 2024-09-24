@@ -8,7 +8,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import dayjs from 'dayjs'; // For handling time formatting
 
-function Header({ toggleSidebar, isSidebarOpen }) {
+function Header({ toggleSidebar, isSidebarMinimized }) {
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null); // Anchor for dropdown
@@ -64,15 +64,17 @@ function Header({ toggleSidebar, isSidebarOpen }) {
   };
 
   return (
-    <div className="fixed top-0 left-64 w-[calc(100%-16rem)] h-20 z-50 bg-white dark:bg-gray-800 px-4 shadow transition-colors duration-300">
+    <div
+      className={`fixed top-0 z-50 bg-white dark:bg-gray-800 px-4 shadow transition-all duration-300 h-20 ${isSidebarMinimized ? 'left-20 w-[calc(100%-5rem)]' : 'left-64 w-[calc(100%-16rem)]'}`}
+    >
       <div className="flex justify-between items-center h-full">
         {/* Left Side: Menu Logo and Search */}
         <div className="flex items-center gap-4">
-          <IconButton onClick={toggleSidebar}>
+          <IconButton onClick={toggleSidebar} className="text-gray-800 dark:text-white">
             <MenuIcon />
           </IconButton>
           <div className="flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
-            <SearchIcon />
+            <SearchIcon className="text-gray-500 dark:text-gray-300" />
             <TextField
               id="outlined-basic"
               label="Search"
@@ -80,6 +82,16 @@ function Header({ toggleSidebar, isSidebarOpen }) {
               size="small"
               sx={{ ml: 1 }}
               className="dark:text-gray-200"
+              InputProps={{
+                style: {
+                  color: isDarkMode ? '#fff' : '#000', // Adjust text color based on mode
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  color: isDarkMode ? '#bbb' : '#000', // Adjust label color
+                },
+              }}
             />
           </div>
         </div>
@@ -88,10 +100,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
         <div className="flex items-center gap-4">
           {/* Check In Dropdown */}
           <div>
-            <IconButton
-              onClick={handleClick}
-              color={isCheckedIn ? 'success' : 'error'}
-            >
+            <IconButton onClick={handleClick} color={isCheckedIn ? 'success' : 'error'}>
               <CheckCircleIcon />
             </IconButton>
 
@@ -110,10 +119,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
             >
               <div className="p-4" style={{ width: '250px' }}>
                 <Typography variant="h6">Today Record</Typography>
-                <Typography
-                  variant="body2"
-                  color={isCheckedIn ? 'green' : 'red'}
-                >
+                <Typography variant="body2" color={isCheckedIn ? 'green' : 'red'}>
                   {isCheckedIn ? `Check-in Time: ${checkInTime.format('YYYY-MM-DD HH:mm:ss')}` : 'Currently Checked Out'}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">

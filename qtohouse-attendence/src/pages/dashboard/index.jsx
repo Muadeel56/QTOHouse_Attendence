@@ -13,15 +13,15 @@ const initialEmployeesData = [
 ];
 
 const columns = [
-  { field: 'firstName', headerName: 'First Name', width: 130 },
-  { field: 'lastName', headerName: 'Last Name', width: 130 },
-  { field: 'role', headerName: 'Role', width: 160 },
-  { field: 'Checkin', headerName: 'Checkin', width: 160 },
-  { field: 'Checkout', headerName: 'Checkout', width: 160 },
-  { field: 'BreakIn', headerName: 'BreakIn', width: 160 },
-  { field: 'BreakOut', headerName: 'BreakOut', width: 160 },
-  { field: 'WorkingHours', headerName: 'Working Hours', width: 160 },
-  { field: 'Overtime', headerName: 'Overtime', width: 100 },
+  { field: 'firstName', headerName: 'First Name', width: 130, headerClassName: 'dark-header' },
+  { field: 'lastName', headerName: 'Last Name', width: 130, headerClassName: 'dark-header' },
+  { field: 'role', headerName: 'Role', width: 160, headerClassName: 'dark-header' },
+  { field: 'Checkin', headerName: 'Checkin', width: 160, headerClassName: 'dark-header' },
+  { field: 'Checkout', headerName: 'Checkout', width: 160, headerClassName: 'dark-header' },
+  { field: 'BreakIn', headerName: 'BreakIn', width: 160, headerClassName: 'dark-header' },
+  { field: 'BreakOut', headerName: 'BreakOut', width: 160, headerClassName: 'dark-header' },
+  { field: 'WorkingHours', headerName: 'Working Hours', width: 160, headerClassName: 'dark-header' },
+  { field: 'Overtime', headerName: 'Overtime', width: 100, headerClassName: 'dark-header' },
   {
     field: 'action',
     headerName: 'Action',
@@ -54,15 +54,15 @@ function Dashboard() {
   };
 
   return (
-    <div className="">
+    <div className="dark:text-gray-300">
       <div className="flex justify-between">
-        <h1>Attendances</h1>
-        <p>Attendance - Attendances</p>
+        <h1 className="text-black dark:text-white">Attendances</h1>
+        <p className="text-gray-600 dark:text-gray-400">Attendance - Attendances</p>
       </div>
 
-      <div className="p-4 h-full bg-white dark:bg-gray-900 mt-10">
+      <div className="p-4 h-full bg-white dark:bg-gray-900 mt-10 rounded-md shadow-md">
         <div className="flex flex-col gap-6">
-          <h1 className="text-xl font-semibold">Add, Edit & Remove</h1>
+          <h1 className="text-xl font-semibold text-black dark:text-white">Add, Edit & Remove</h1>
 
           <div className="flex justify-between w-full items-center">
             <div>
@@ -73,13 +73,14 @@ function Dashboard() {
             {/* Filter Section */}
             <div className="flex gap-4">
               <FormControl sx={{ m: 1, minWidth: 140 }}>
-                <InputLabel id="demo-simple-select-label">Employees</InputLabel>
+                <InputLabel id="demo-simple-select-label" className="dark:text-white">Employees</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   label="Employees"
                   value={filters.age}
                   onChange={(e) => setFilters({ ...filters, age: e.target.value })}
+                  className="dark:text-white dark:bg-gray-800"
                 >
                   <MenuItem value="Ten">Muhammad Adeel</MenuItem>
                   <MenuItem value="Twenty">Danish Irfan</MenuItem>
@@ -88,13 +89,14 @@ function Dashboard() {
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 160 }}>
-                <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                <InputLabel id="demo-simple-select-label" className="dark:text-white">Role</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   label="Role"
                   value={filters.role}
                   onChange={(e) => setFilters({ ...filters, role: e.target.value })}
+                  className="dark:text-white dark:bg-gray-800"
                 >
                   <MenuItem value="Civil Engineer">Civil Engineer</MenuItem>
                   <MenuItem value="Mechanical Engineer">Mechanical Engineer</MenuItem>
@@ -104,13 +106,14 @@ function Dashboard() {
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 160 }}>
-                <InputLabel id="demo-simple-select-checkin">Checkin</InputLabel>
+                <InputLabel id="demo-simple-select-checkin" className="dark:text-white">Checkin</InputLabel>
                 <Select
                   labelId="demo-simple-select-checkin"
                   id="demo-simple-checkin"
                   label="Checkin"
                   value={filters.checkin}
                   onChange={(e) => setFilters({ ...filters, checkin: e.target.value })}
+                  className="dark:text-white dark:bg-gray-800"
                 >
                   <MenuItem value="03:00 pm">03:00 pm</MenuItem>
                   <MenuItem value="12:00 pm">12:00 pm</MenuItem>
@@ -118,29 +121,30 @@ function Dashboard() {
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 160 }}>
-                <InputLabel id="demo-simple-select-working-hours">Working Hours</InputLabel>
+                <InputLabel id="demo-simple-select-working-hours" className="dark:text-white">Working Hours</InputLabel>
                 <Select
                   labelId="demo-simple-select-working-hours"
                   id="demo-simple-select-working-hours"
                   label="Working Hours"
                   value={filters.workingHours}
                   onChange={(e) => setFilters({ ...filters, workingHours: e.target.value })}
+                  className="dark:text-white dark:bg-gray-800"
                 >
                   <MenuItem value="09 Hours">09 Hours</MenuItem>
                   <MenuItem value="08 Hours">08 Hours</MenuItem>
                 </Select>
               </FormControl>
               <div className="flex items-center">
-                <button className="px-4 py-2  bg-blue-500 text-white rounded" onClick={handleSearch}>
-                Search
-              </button>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded" onClick={handleSearch}>
+                  Search
+                </button>
               </div>
             </div>
           </div>
         </div>
 
         {/* DataGrid Table for Employee List */}
-        <Paper sx={{ height: 400, width: '100%', marginTop: '40px' }}>
+        <Paper sx={{ height: 400, width: '100%', marginTop: '40px' }} className="dark:bg-gray-800">
           <DataGrid
             rows={filteredData}
             columns={columns}
@@ -148,6 +152,25 @@ function Dashboard() {
             rowsPerPageOptions={[5, 10]}
             checkboxSelection
             disableSelectionOnClick
+            className="dark:text-white dark:bg-gray-800"
+            sx={{
+              '& .MuiDataGrid-columnHeaders': {
+                backgroundColor: 'white',
+                color: 'black',
+                '&.dark': {
+                  backgroundColor: 'gray',
+                  color: 'white',
+                },
+              },
+              '& .MuiDataGrid-footerContainer': {
+                backgroundColor: 'white',
+                color: 'black',
+                '&.dark': {
+                  backgroundColor: 'gray',
+                  color: 'white',
+                },
+              },
+            }}
           />
         </Paper>
       </div>
