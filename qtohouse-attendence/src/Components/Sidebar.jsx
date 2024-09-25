@@ -32,6 +32,7 @@ function SidebarMenu({ isSidebarMinimized }) {
 
       <Menu>
         {/* Attendance Parent Menu */}
+        {/* Attendance Parent Menu */}
         <SubMenu
           label="Attendance"
           icon={<AttendanceIcon />}
@@ -43,7 +44,7 @@ function SidebarMenu({ isSidebarMinimized }) {
             <Link to="/charts">Charts</Link>
           </MenuItem>
           <MenuItem className="hover:bg-gray-100 dark:hover:bg-black">
-            <Link to="/lists">Lists</Link>
+            <Link to="/lists">Lists</Link> {/* The "Lists" item points to /lists */}
           </MenuItem>
         </SubMenu>
 

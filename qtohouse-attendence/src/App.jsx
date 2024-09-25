@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Components/Header";
 import SidebarMenu from "./Components/Sidebar";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/dashboard"; // This is the attendance list
 
 function App() {
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
@@ -36,8 +36,11 @@ function App() {
             } mt-20 p-6 bg-gray-100 dark:bg-gray-900 min-h-screen`}
           >
             <Routes>
+              {/* Default route */}
               <Route path="/" element={<Dashboard />} />
-              {/* Add other routes here */}
+              
+              {/* Add route for the attendance list */}
+              <Route path="/lists" element={<Dashboard />} /> {/* "Lists" will display the attendance dashboard */}
             </Routes>
           </div>
         </div>
